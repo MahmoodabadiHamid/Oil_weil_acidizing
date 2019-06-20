@@ -4,7 +4,7 @@ import numpy as np
 import os
 os.chdir("dataSet")
 import pandas as pd
-
+from pandas.plotting import scatter_matrix
 
 def labelEncoder(df):
     from sklearn.preprocessing import LabelEncoder
@@ -30,15 +30,24 @@ def normalizeValues(df):
 
 def plot_corr(df,size=10):
     corr = df.corr()
-    import matplotlib
-    plt.imshow(corr, cmap=plt.cm.seismic)
-    plt.colorbar()
-    tick_marks = [i for i in range(len(corr.columns))]
-    plt.xticks(range(len(corr.columns)), corr.columns, rotation='vertical',verticalalignment='top');
-    plt.yticks(range(len(corr.columns)), corr.columns);
-    plt.savefig('../figures/Correlation_matrix.jpg')
-    plt.show()
+    pl, ax = plt.subplots(figsize=(10, 6))
+    hm = sns.heatmap(round(corr,2), annot=True, ax=ax, cmap="coolwarm",fmt='.2f',
+                     linewidths=.05)
+    pl.subplots_adjust(top=0.93)
+    t= pl.suptitle('Well Attributes Correlation Heatmap', fontsize=14)
+    pl.save('')
+    pl.show()
+
+
     
+
+
+def PCA(X, n_components):
+    from sklearn.decomposition import PCA
+    pca = PCA(n_components = n_components)
+    X = pca.fit(X).transform(X)
+    return  pd.DataFrame(X)
+
 
 def save_box_plot(df1, df2):
     arr1 = np.array(df1)
@@ -55,20 +64,35 @@ def save_box_plot(df1, df2):
         plt.pause(0.1)
         plt.close()
 
+#____________________________________________________________ Step One ___________________________________________
 file_name = 'preprocessed.xlsx'
 df = pd.read_excel(file_name, index_col=0, index=False)
 
+#____________________________________________________________ Step Two ___________________________________________
 enc_df = labelEncoder(df)
 
-norm_df = normalizeValues(df)
+#____________________________________________________________ Step Three ___________________________________________
+#norm_df = normalizeValues(df)
 
+#____________________________________________________________ Step Four ___________________________________________
 #save_box_plot(enc_df, norm_df)
 
+#____________________________________________________________ Step Five ___________________________________________
 plot_corr(enc_df,size=10)
 
+#____________________________________________________________ Step Six ___________________________________________
+
+file_name = '02_preprocessing_after_normalizing_values.xlsx'
+df = pd.read_excel(file_name, index_col=0, index=False)
+
+#pca_df = pd.DataFrame(df)#PCA(df, 2))
 
 
+#pca_df.plot(style=['o','rx'])
 
+#plt.show()
+
+#scatter_matrix(pca_df, alpha=0.2)
 
 
 

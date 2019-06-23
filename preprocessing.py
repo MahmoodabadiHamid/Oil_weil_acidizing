@@ -24,8 +24,10 @@ def normalizeValues(df):
     from sklearn import preprocessing
     min_max_scaler = preprocessing.MinMaxScaler()
     x = df.values
+    col = df.columns
     x_scaled = min_max_scaler.fit_transform(x)
     df = pd.DataFrame(x_scaled)
+    df.columns = col
     df.to_excel('02_preprocessing_after_normalizing_values.xlsx')
     return df
 
@@ -83,8 +85,8 @@ df = pd.read_excel(file_name, index_col=0, index=False)
 enc_df = labelEncoder(df)
 
 #____________________________________________________________ Step Three ___________________________________________
-#norm_df = normalizeValues(df)
-
+norm_df = normalizeValues(df)
+input(norm_df.iloc[0])
 #____________________________________________________________ Step Four ___________________________________________
 #save_box_plot(enc_df, norm_df)
 

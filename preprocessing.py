@@ -81,7 +81,7 @@ df = pd.read_excel(file_name, index_col=0, index=False)
 
 #____________________________________________________________ Step Two ___________________________________________
 enc_df = labelEncoder(df)
-
+print(enc_df.iloc[0])
 #____________________________________________________________ Step Three ___________________________________________
 #norm_df = normalizeValues(df)
 

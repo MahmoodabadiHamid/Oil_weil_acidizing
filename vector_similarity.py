@@ -86,9 +86,5 @@ plot_k_most_similar_to_well(dataSet, 'well 0', 5)
 
 
 
-dataSet.hist(bins=15, color='steelblue', edgecolor='black', linewidth=1.0,
-           xlabelsize=8, ylabelsize=8, grid=False)    
-plt.tight_layout(rect=(0, 0, 1.2, 1.2))
-plt.show()
 
 

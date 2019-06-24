@@ -78,15 +78,15 @@ def draw_pair_wise_scatter_plots(df):
     sns.pairplot(df)
     plt.show()
 #____________________________________________________________ Step One ___________________________________________
-file_name = 'preprocessed.xlsx'
-df = pd.read_excel(file_name, index_col=0, index=False)
+#file_name = 'preprocessed.xlsx'
+#df = pd.read_excel(file_name, index_col=0, index=False)
 
 #____________________________________________________________ Step Two ___________________________________________
-enc_df = labelEncoder(df)
-print(enc_df.iloc[0])
+#enc_df = labelEncoder(df)
+#print(enc_df.iloc[0])
 #____________________________________________________________ Step Three ___________________________________________
-norm_df = normalizeValues(df)
-input(norm_df.iloc[0])
+#norm_df = normalizeValues(df)
+#input(norm_df.iloc[0])
 #____________________________________________________________ Step Four ___________________________________________
 #save_box_plot(enc_df, norm_df)
 
@@ -95,8 +95,8 @@ input(norm_df.iloc[0])
 
 #____________________________________________________________ Step Six ___________________________________________
 
-#file_name = '02_preprocessing_after_normalizing_values.xlsx'
-#df = pd.read_excel(file_name, index_col=0, index=False)
+file_name = '02_preprocessing_after_normalizing_values.xlsx'
+df = pd.read_excel(file_name)
 
 #____________________________________________________________ Step Seven ___________________________________________
 #draw_pair_wise_scatter_plots(enc_df)

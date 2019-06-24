@@ -127,5 +127,3 @@ input(norm_df.iloc[0])
 
 
 
-
-

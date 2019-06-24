@@ -43,7 +43,7 @@ def plot_corr(df,size=10):
     t= pl.suptitle('Well Attributes Correlation Heatmap', fontsize=14)
     pl.savefig('Correlation_Plot.jpg')
     plt.show()
-    
+
 def featureCorrelationRanking(df):
     c = df.corr()
     s = c.unstack()
@@ -51,7 +51,7 @@ def featureCorrelationRanking(df):
     so = pd.DataFrame(so.dropna())
     so.to_excel("feture_correlation_ranking.xlsx")
     return so
-    
+
 def PCA(X, n_components):
     from sklearn.decomposition import PCA
     pca = PCA(n_components = n_components)
@@ -73,7 +73,7 @@ def save_box_plot(df1, df2):
         plt.show(block=False)
         plt.pause(0.1)
         plt.close()
-        
+
 def draw_pair_wise_scatter_plots(df):
     sns.pairplot(df)
     plt.show()
@@ -96,7 +96,7 @@ def draw_pair_wise_scatter_plots(df):
 #____________________________________________________________ Step Six ___________________________________________
 
 file_name = '02_preprocessing_after_normalizing_values.xlsx'
-df = pd.read_excel(file_name)
+df = pd.read_excel(file_name, index = True)
 
 #____________________________________________________________ Step Seven ___________________________________________
 #draw_pair_wise_scatter_plots(enc_df)
@@ -116,7 +116,6 @@ df = pd.read_excel(file_name)
 #plt.show()
 
 #scatter_matrix(pca_df, alpha=0.2)
-
 
 
 

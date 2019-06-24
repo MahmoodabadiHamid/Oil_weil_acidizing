@@ -96,7 +96,7 @@ def draw_pair_wise_scatter_plots(df):
 #____________________________________________________________ Step Six ___________________________________________
 
 file_name = '02_preprocessing_after_normalizing_values.xlsx'
-df = pd.read_excel(file_name)
+df = pd.read_excel(file_name, index = True)
 
 #____________________________________________________________ Step Seven ___________________________________________
 #draw_pair_wise_scatter_plots(enc_df)

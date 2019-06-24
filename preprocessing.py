@@ -128,4 +128,11 @@ df = pd.read_excel(file_name)
 
 
 
+'''
+>>> n=0
+>>> for i in range(df.shape[0]):
+	if i % 5 == 0:
+		n = n+1
+	df.iloc[i, 0] = int(n)
 
+'''

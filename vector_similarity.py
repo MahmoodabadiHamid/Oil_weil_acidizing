@@ -111,10 +111,10 @@ def readDataSet():
     return dataSet, columns
 
 dataSet, columns = readDataSet()
-'''
-plot_k_most_similar_to_well(dataSet, columns, 'well_50_1', 0)
-'''
-plot_features(dataSet, columns)
+
+plot_k_most_similar_to_well(dataSet, columns, 'well_22_2', 10)
+
+#plot_features(dataSet, columns)
 
 
 

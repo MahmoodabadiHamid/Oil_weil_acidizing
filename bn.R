@@ -20,3 +20,6 @@ aa=X01_preprocessing_after_encoding_label[,-c(1,21,24)]
 hh=plot(hc(aa))
 all.equal(g,hh)
 ?all.equal
+plplot(,,labels(a$`Carbonate/Sandstone`))
+plot(a$Longitude,a$Latitude, col = c("red", "blue")[a$`Carbonate/Sandstone`])
+plot(a$Longitude,a$Latitude, col = rgb(0, 1, a$`Carbonate/Sandstone`))

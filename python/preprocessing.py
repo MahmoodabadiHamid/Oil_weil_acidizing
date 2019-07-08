@@ -2,22 +2,16 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-os.chdir("dataSet")
+os.chdir("../Second dataset")
 import pandas as pd
 from pandas.plotting import scatter_matrix
 from sklearn.decomposition import PCA
 
 
-def labelEncoder(df):
+def labelEncoder(df, label):
     from sklearn.preprocessing import LabelEncoder
     lb_make = LabelEncoder()
-    df["Oil/Gas"] = lb_make.fit_transform(df["Oil/Gas"])
-    df["Open/Cased"] = lb_make.fit_transform(df["Open/Cased"])
-    df["Water/Oil-Based"] = lb_make.fit_transform(df["Water/Oil-Based"])
-    df["Loss/Gain"] = lb_make.fit_transform(df["Loss/Gain"])
-    df["Carbonate/Sandstone"] = lb_make.fit_transform(df["Carbonate/Sandstone"])
-    df["Wettability"] = lb_make.fit_transform(df["Wettability"])
-    df["Oil/Gas"] = lb_make.fit_transform(df["Oil/Gas"])
+    df[label] = lb_make.fit_transform(df[label])
     df.to_excel('01_preprocessing_after_encoding_label.xlsx')
     return df
 
@@ -109,15 +103,13 @@ def plot_2d_features(df):
         plt.legend()
         #plt.savefig('2D_'+str(col))
         plt.show()
-def k_means(df):
+
+def number_of_optimal_k_means_classes(df):
     import pandas as pd
     from sklearn.cluster import KMeans
     import matplotlib.pyplot as plt
-    from sklearn.datasets import load_iris
 
-    iris = load_iris()
-    X = pd.DataFrame(iris.data, columns=iris['feature_names'])
-    #print(X)
+
     data = df
     sse = {}
     for k in range(1, 10):
@@ -128,14 +120,69 @@ def k_means(df):
     plt.plot(list(sse.keys()), list(sse.values()))
     plt.xlabel("Number of cluster")
     plt.ylabel("SSE")
+    plt.savefig('Number of optimal classes')
     plt.show()
 
+#__________________________________________________________
+def k_means(df):
+    from sklearn.cluster import KMeans
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    
+    df = df.drop(['Id', 'Level', 'Column Volume (ft3)'], axis=1)
+    
+    pca = PCA(n_components=2)
+    df = pca.fit_transform(df)
+    principalDf = pd.DataFrame(data = df, columns = ['pc1', 'pc2'])
+    print(principalDf.shape)
+    kmeans = KMeans(n_clusters=3, max_iter=1000).fit(df)
+    sns.scatterplot(principalDf['pc1'], principalDf['pc2'], hue = kmeans.labels_)
+    plt.legend()
+    plt.show()
+        
+
+def evaluate_pca_effect(df):
+    from sklearn.cluster import KMeans
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    from sklearn.metrics import mean_squared_error
+    df = df.drop(['Id', 'Level', 'Column Volume (ft3)'], axis=1)
+    kmeans = KMeans(n_clusters=3, max_iter=1000).fit(df)
+    f24 = kmeans.labels_
+    errors = {} 
+    for itr in range(100):
+        print(itr)
+        for i in range(1, df.shape[1]):
+            pca = PCA(n_components=i)
+            tmp_df = pd.DataFrame(pca.fit_transform(df))
+            kmeans = KMeans(n_clusters=3, max_iter=1000).fit(tmp_df)
+            errors[i] = errors[i]  + mean_squared_error(f24, kmeans.labels_) if (i in errors) else mean_squared_error(f24, kmeans.labels_)
+            #errors[i-1] += mean_squared_error(f24, kmeans.labels_)
+        #errors.append(mean_squared_error(f24, f24))
+
+    print(errors)
+    plt.plot(*zip(*sorted(errors.items())), 'bx')
+    plt.plot(*zip(*sorted(errors.items())), 'r')
+
+    #plt.plot(zip(*sorted(errors.items())), errors, 'bx')
+    #plt.plot(zip(*sorted(errors.items())), errors,  'r')
+    plt.title(str(errors), fontsize=5)
+    plt.xlabel('PCA Size')
+    plt.ylabel('MSE')
+    plt.savefig('PCA_error.png')
+    plt.show()
+    return errors
+   
+#__________________________________________________________
+
+    
+
 #____________________________________________________________ Step One ___________________________________________
-file_name = 'preprocessed.xlsx'
-df = pd.read_excel(file_name, index_col=0, index=False)
+#file_name = 'preprocessed.xlsx'
+#df = pd.read_excel(file_name, index_col=0, index=False)
 
 #____________________________________________________________ Step Two ___________________________________________
-enc_df = labelEncoder(df)
+#enc_df = labelEncoder(df)
 #print(enc_df.iloc[0])
 #____________________________________________________________ Step Three ___________________________________________
 #norm_df = normalizeValues(df)
@@ -144,20 +191,22 @@ enc_df = labelEncoder(df)
 #save_box_plot(enc_df, norm_df)
 
 #____________________________________________________________ Step Five ___________________________________________
-plot_corr(enc_df,size=10)
+#plot_corr(enc_df,size=10)
 
 #____________________________________________________________ Step Six ___________________________________________
 
-file_name = '02_preprocessing_after_normalizing_values.xlsx'
-df = pd.read_excel(file_name, index = True)
+#file_name = '02_preprocessing_after_normalizing_values.xlsx'
+#df = pd.read_excel(file_name, index = True)
 
-plot_corr(df, 5)
+#plot_corr(df, 5)
 
 #plot_2d_features(df)
 
 
+#number_of_optimal_k_means_classes(df)
 #k_means(df)
 
+#er = evaluate_pca_effect(df)
 
 #____________________________________________________________ Step Seven ___________________________________________
 #draw_pair_wise_scatter_plots(enc_df)

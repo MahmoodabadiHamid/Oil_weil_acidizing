@@ -1,16 +1,3 @@
-import pandas as pd
-def readDataSet():
-    file_name = 'dataSet/02_preprocessing_after_normalizing_values.xlsx'
-    df = pd.read_excel(file_name, index=False)
-    dataSet = []
-    for i in range(df.shape[0]):
-        well = str('well_' + str(int(df.iloc[i]['Id'])) + '_'+ str(int(df.iloc[i]['Level'])))
-        wellVector = list(df.drop(columns = ["Id", "Longitude", "Latitude", "Level"]).iloc[i].values)
-        dataSet.append(Well(well, wellVector))
-    columns = list(df.drop(columns = ["Id", "Longitude", "Latitude", "Level"]).columns)
-    return dataSet, columns
-
-
 
 def plot_scatter():
     import matplotlib.pyplot as plt

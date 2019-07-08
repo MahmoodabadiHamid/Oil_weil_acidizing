@@ -52,7 +52,20 @@ def shan_entropy(c):
     c_normalized = c_normalized[np.nonzero(c_normalized)]
     H = -sum(c_normalized* np.log2(c_normalized))  
     return H
-print(calc_MI(df.Longitude,df.Latitude,1))
+calc_MI(df.Longitude,df.Latitude,1)
+#print(df.iloc[:,-26])
+for i in range(1,26):
+   for j in range(1,26):
+      print( i,j,calc_MI(df.iloc[:,-i],df.iloc[:,-j],500))
+#print(MI())
+#print(calc_MI(df.iloc[:,-26],df.iloc[:,-24],5))
+       
+   
+
+   
+
+
+
 
 
 

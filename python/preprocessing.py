@@ -2,7 +2,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-os.chdir("../Second dataset")
+os.chdir("../First dataset")
 import pandas as pd
 from pandas.plotting import scatter_matrix
 from sklearn.decomposition import PCA
@@ -81,8 +81,9 @@ def plot_2d_features(df):
     
     df = df.drop(['Id', 'Level', 'Column Volume (ft3)'], axis=1)
     for col in df.columns:
+        print(col)
         target = df[col]
-        tmp_df = df.drop([col], axis = 1)
+        tmp_df = df#df.drop([col], axis = 1)
         pca = PCA(n_components=2)
         tmp_df = pca.fit_transform(tmp_df)
         principalDf = pd.DataFrame(data = tmp_df
@@ -101,7 +102,7 @@ def plot_2d_features(df):
         sns.scatterplot(principalDf['pc1'], principalDf['pc2'], hue = principalDf[str(col)])
         #plt.title('Carbonate_sanstone wells based on its location')
         plt.legend()
-        #plt.savefig('2D_'+str(col))
+        plt.savefig('2D_'+str(col))
         plt.show()
 
 def number_of_optimal_k_means_classes(df):
@@ -195,12 +196,12 @@ def evaluate_pca_effect(df):
 
 #____________________________________________________________ Step Six ___________________________________________
 
-#file_name = '02_preprocessing_after_normalizing_values.xlsx'
-#df = pd.read_excel(file_name, index = True)
+file_name = '02_preprocessing_after_normalizing_values.xlsx'
+df = pd.read_excel(file_name, index = True)
 
 #plot_corr(df, 5)
 
-#plot_2d_features(df)
+plot_2d_features(df)
 
 
 #number_of_optimal_k_means_classes(df)

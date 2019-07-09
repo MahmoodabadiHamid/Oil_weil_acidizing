@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-os.chdir("dataSet")
+os.chdir("../First Dataset")
 import math
 import matplotlib.pyplot as plt
 from collections import Counter
@@ -111,8 +111,8 @@ def readDataSet():
     return dataSet, columns
 
 dataSet, columns = readDataSet()
-
-plot_k_most_similar_to_well(dataSet, columns, 'well_22_2', 10)
+for i in range(1, 100):
+    plot_k_most_similar_to_well(dataSet, columns, 'well_'+str(i)+'_2', 2)
 
 #plot_features(dataSet, columns)
 

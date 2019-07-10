@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 os.chdir("../Second dataset")
+
 import pandas as pd
 from pandas.plotting import scatter_matrix
 from sklearn.decomposition import PCA
@@ -30,7 +31,7 @@ def normalizeValues(df):
 
 def plot_corr(df,size=10):
     corr = df.corr()
-    
+
     pl, ax = plt.subplots(figsize=(20, 15))
     hm = sns.heatmap(round(corr,2), annot=True, ax=ax, cmap="coolwarm",fmt='.2f',
                      linewidths=.05, annot_kws={"size": 7})
@@ -46,7 +47,7 @@ def featureCorrelationRanking(df):
     s = c.unstack()
     so = s.sort_values(kind="quicksort")
     so = pd.DataFrame(so.dropna())
-    so.to_excel("feture_correlation_ranking.xlsx")
+    so.to_excel("feture_correlation_ranking2.xlsx")
     return so
 
 def PCA_(X, n_components):
@@ -66,7 +67,7 @@ def save_box_plot(df1, df2):
         plt.boxplot(arr1[:, i])
         plt.subplot(122)
         plt.boxplot(arr2[:, i])
-        fig.savefig(str('../figures/fig' + str(i) + '.jpg'))
+        fig.savefig(str('../figures2/fig' + str(i) + '.jpg'))
         plt.show(block=False)
         plt.pause(0.1)
         plt.close()
@@ -78,12 +79,11 @@ def draw_pair_wise_scatter_plots(df):
 def plot_2d_features(df):
     import matplotlib.pyplot as plt
     import seaborn as sns
-    
+
     df = df.drop(['Id', 'Level', 'Column Volume (ft3)'], axis=1)
     for col in df.columns:
-        print(col)
         target = df[col]
-        tmp_df = df#df.drop([col], axis = 1)
+        tmp_df = df.drop([col], axis = 1)
         pca = PCA(n_components=2)
         tmp_df = pca.fit_transform(tmp_df)
         principalDf = pd.DataFrame(data = tmp_df
@@ -98,11 +98,11 @@ def plot_2d_features(df):
         x_scaled = min_max_scaler.fit_transform(x)
         principalDf = pd.DataFrame(x_scaled)
         principalDf.columns = cols
-        
+
         sns.scatterplot(principalDf['pc1'], principalDf['pc2'], hue = principalDf[str(col)])
         #plt.title('Carbonate_sanstone wells based on its location')
         plt.legend()
-        plt.savefig('2D_'+str(col))
+        #plt.savefig('2D_'+str(col))
         plt.show()
 
 def number_of_optimal_k_means_classes(df):
@@ -129,9 +129,9 @@ def k_means(df):
     from sklearn.cluster import KMeans
     import matplotlib.pyplot as plt
     import seaborn as sns
-    
+
     df = df.drop(['Id', 'Level', 'Column Volume (ft3)'], axis=1)
-    
+
     pca = PCA(n_components=2)
     df = pca.fit_transform(df)
     principalDf = pd.DataFrame(data = df, columns = ['pc1', 'pc2'])
@@ -140,7 +140,7 @@ def k_means(df):
     sns.scatterplot(principalDf['pc1'], principalDf['pc2'], hue = kmeans.labels_)
     plt.legend()
     plt.show()
-        
+
 
 def evaluate_pca_effect(df):
     from sklearn.cluster import KMeans
@@ -150,7 +150,7 @@ def evaluate_pca_effect(df):
     df = df.drop(['Id', 'Level', 'Column Volume (ft3)'], axis=1)
     kmeans = KMeans(n_clusters=3, max_iter=1000).fit(df)
     f24 = kmeans.labels_
-    errors = {} 
+    errors = {}
     for itr in range(100):
         print(itr)
         for i in range(1, df.shape[1]):
@@ -173,21 +173,22 @@ def evaluate_pca_effect(df):
     plt.savefig('PCA_error.png')
     plt.show()
     return errors
-   
+
 #__________________________________________________________
 
-    
+
 
 #____________________________________________________________ Step One ___________________________________________
 #file_name = 'Sample Synthetic Data - Revised.xlsx'
-#df = pd.read_excel(file_name, index_col=0, index=False)
-cols=["Oil/Gas","Open/Cased","Water/Oil0Based","Loss/Gain","Carbonate/Sandstone","Wettability"]
-#for col in cols:
- #   enc_df[col]=labelEncoder(df,"col")
-
+#df = pd.read_excel(file_name)
 
 #____________________________________________________________ Step Two ___________________________________________
-#enc_df = labelEncoder(df,cols)
+
+#cols = ["Oil/Gas","Open/Cased","Water/Oil0Based","Loss/Gain","Carbonate/Sandstone","Wettability" ]
+#for col in cols:
+#    enc_df = labelEncoder(df, col)
+
+#enc_df = labelEncoder(df, cols)
 #print(enc_df.iloc[0])
 #____________________________________________________________ Step Three ___________________________________________
 #norm_df = normalizeValues(df)
@@ -196,8 +197,8 @@ cols=["Oil/Gas","Open/Cased","Water/Oil0Based","Loss/Gain","Carbonate/Sandstone"
 #save_box_plot(enc_df, norm_df)
 
 #____________________________________________________________ Step Five ___________________________________________
-#plot_corr(enc_df,size=10)
-
+df = pd.read_excel("022_preprocessing_after_normalizing_values.xlsx")
+plot_corr(df,size=10)
 #____________________________________________________________ Step Six ___________________________________________
 
 #file_name = '02_preprocessing_after_normalizing_values.xlsx'
@@ -209,7 +210,7 @@ cols=["Oil/Gas","Open/Cased","Water/Oil0Based","Loss/Gain","Carbonate/Sandstone"
 
 
 #number_of_optimal_k_means_classes(df)
-#k_means(df)
+##k_means(df)
 
 #er = evaluate_pca_effect(df)
 

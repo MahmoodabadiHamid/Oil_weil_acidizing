@@ -2,7 +2,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-os.chdir("../First dataset")
+os.chdir("../Dataset/Second dataset")
 import pandas as pd
 from pandas.plotting import scatter_matrix
 from sklearn.decomposition import PCA
@@ -12,7 +12,7 @@ def labelEncoder(df, label):
     from sklearn.preprocessing import LabelEncoder
     lb_make = LabelEncoder()
     df[label] = lb_make.fit_transform(df[label])
-    df.to_excel('01_preprocessing_after_encoding_label.xlsx')
+    df.to_excel('011_preprocessing_after_encoding_label.xlsx')
     return df
 
 
@@ -24,7 +24,7 @@ def normalizeValues(df):
     x_scaled = min_max_scaler.fit_transform(x)
     df = pd.DataFrame(x_scaled)
     df.columns = col
-    df.to_excel('02_preprocessing_after_normalizing_values.xlsx')
+    df.to_excel('022_preprocessing_after_normalizing_values.xlsx')
     return df
 
 
@@ -179,54 +179,58 @@ def evaluate_pca_effect(df):
     
 
 #____________________________________________________________ Step One ___________________________________________
-#file_name = 'preprocessed.xlsx'
-#df = pd.read_excel(file_name, index_col=0, index=False)
+file_name = 'Sample Synthetic Data - Revised.xlsx'
+df = pd.read_excel(file_name, index_col=0, index=False)
+cols=["Oil/Gas","Open/Cased","Water/Oil0Based","Loss/Gain","Carbonate/Sandstone","Wettability"]
+#for col in cols:
+ #   enc_df[col]=labelEncoder(df,"col")
+
 
 #____________________________________________________________ Step Two ___________________________________________
-#enc_df = labelEncoder(df)
-#print(enc_df.iloc[0])
+enc_df = labelEncoder(df,cols)
+print(enc_df.iloc[0])
 #____________________________________________________________ Step Three ___________________________________________
-#norm_df = normalizeValues(df)
-#input(norm_df.iloc[0])
+norm_df = normalizeValues(df)
+input(norm_df.iloc[0])
 #____________________________________________________________ Step Four ___________________________________________
-#save_box_plot(enc_df, norm_df)
+save_box_plot(enc_df, norm_df)
 
 #____________________________________________________________ Step Five ___________________________________________
-#plot_corr(enc_df,size=10)
+plot_corr(enc_df,size=10)
 
 #____________________________________________________________ Step Six ___________________________________________
 
 #file_name = '02_preprocessing_after_normalizing_values.xlsx'
 #df = pd.read_excel(file_name, index = True)
 
-#plot_corr(df, 5)
+plot_corr(df, 5)
 
 #plot_2d_features(df)
 
 
-#number_of_optimal_k_means_classes(df)
-#k_means(df)
+number_of_optimal_k_means_classes(df)
+k_means(df)
 
-#er = evaluate_pca_effect(df)
+er = evaluate_pca_effect(df)
 
 #____________________________________________________________ Step Seven ___________________________________________
-#draw_pair_wise_scatter_plots(enc_df)
+draw_pair_wise_scatter_plots(enc_df)
 
 #____________________________________________________________ Step Eight ___________________________________________
 
 
 
-#pca_df = pd.DataFrame(df)#PCA(df, 2))
+pca_df = pd.DataFrame(df)#PCA(df, 2))
 
 
 
 
 
-#pca_df.plot(style=['o','rx'])
+pca_df.plot(style=['o','rx'])
 
-#plt.show()
+plt.show()
 
-#scatter_matrix(pca_df, alpha=0.2)
+scatter_matrix(pca_df, alpha=0.2)
 
 
 

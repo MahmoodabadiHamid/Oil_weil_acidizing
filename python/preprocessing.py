@@ -176,6 +176,22 @@ def evaluate_pca_effect(df):
 
 #__________________________________________________________
 
+def plotByLocation(df, label):
+    """
+    plt.scatter(df["Longitude"], df["Latitude"], c = df[label])
+    plt.xlabel("Longitude")
+    plt.ylabel("Latitude")
+    plt.title(str(label) + ' relation with location')
+    plt.legend(('y0','y1'))
+    plt.show()
+    """
+    
+    sns.scatterplot(df["Longitude"], df["Latitude"], hue = df[label])
+    plt.title(str(label) + ' relation with location')
+    plt.legend()
+    plt.savefig('2D_'+str(label))
+    plt.show()
+
 
 
 #____________________________________________________________ Step One ___________________________________________

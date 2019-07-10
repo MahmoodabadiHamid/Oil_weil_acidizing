@@ -196,12 +196,12 @@ def evaluate_pca_effect(df):
 
 #____________________________________________________________ Step Six ___________________________________________
 
-file_name = '02_preprocessing_after_normalizing_values.xlsx'
-df = pd.read_excel(file_name, index = True)
+#file_name = '02_preprocessing_after_normalizing_values.xlsx'
+#df = pd.read_excel(file_name, index = True)
 
 #plot_corr(df, 5)
 
-plot_2d_features(df)
+#plot_2d_features(df)
 
 
 #number_of_optimal_k_means_classes(df)

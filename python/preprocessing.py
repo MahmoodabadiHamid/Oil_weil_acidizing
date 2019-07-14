@@ -130,13 +130,13 @@ def k_means(df):
     import matplotlib.pyplot as plt
     import seaborn as sns
 
-    df = df.drop(['Id', 'Level', 'Column Volume (ft3)'], axis=1)
+    df = df.drop(['Id', 'Level'], axis=1)#'Column Volume (ft3)'
 
     pca = PCA(n_components=2)
     df = pca.fit_transform(df)
     principalDf = pd.DataFrame(data = df, columns = ['pc1', 'pc2'])
     print(principalDf.shape)
-    kmeans = KMeans(n_clusters=3, max_iter=1000).fit(df)
+    kmeans = KMeans(n_clusters=4, max_iter=1000).fit(df)
     sns.scatterplot(principalDf['pc1'], principalDf['pc2'], hue = kmeans.labels_)
     plt.legend()
     plt.show()
@@ -147,7 +147,7 @@ def evaluate_pca_effect(df):
     import matplotlib.pyplot as plt
     import seaborn as sns
     from sklearn.metrics import mean_squared_error
-    df = df.drop(['Id', 'Level', 'Column Volume (ft3)'], axis=1)
+    df = df.drop(['Id', 'Level'], axis=1) #'Column Volume (ft3)'
     kmeans = KMeans(n_clusters=3, max_iter=1000).fit(df)
     f24 = kmeans.labels_
     errors = {}

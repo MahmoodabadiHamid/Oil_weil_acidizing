@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-os.chdir("dataSet")
+os.chdir("../Dataset/Second dataset")
 import math
 import matplotlib.pyplot as plt
 from collections import Counter
@@ -100,7 +100,7 @@ def plot_features(dataSet, columns):
     plt.show()
 
 def readDataSet():
-    file_name = '02_preprocessing_after_normalizing_values.xlsx'
+    file_name = '022_preprocessing_after_normalizing_values.xlsx'
     df = pd.read_excel(file_name, index=False)
     dataSet = []
     for i in range(df.shape[0]):
@@ -112,7 +112,7 @@ def readDataSet():
 
 dataSet, columns = readDataSet()
 
-plot_k_most_similar_to_well(dataSet, columns, 'well_22_2', 10)
+plot_k_most_similar_to_well(dataSet, columns, 'well_1_1', 10)
 
 #plot_features(dataSet, columns)
 

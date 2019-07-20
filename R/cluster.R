@@ -8,36 +8,36 @@ library("magrittr")
 # Load  and prepare the data
 
 
-my <- X02_preprocessing_after_normalizing_values %>%
+d <- X022_preprocessing_after_normalizing_values %>%
   na.omit() %>%          # Remove missing values (NA)
   scale()                # Scale variables
 
 # View the firt 3 rows
-head(my, n = 3)
+head(d, n = 3)
 
 # get_dist(): for computing a distance matrix between the rows of a data matrix. Compared to the standard dist() function, it supports correlation-based distance measures including "pearson", "kendall" and "spearman" methods.
 # fviz_dist(): for visualizing a distance matrix
 
-res.dist <- get_dist(my, stand = TRUE, method = "pearson")
+res.dist <- get_dist(d, stand = TRUE, method = "pearson")
 
-fviz_dist(res.dist, 
-          gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07")
+fviz_dist(res.dist,
+          gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
 library("factoextra")
-fviz_nbclust(my, kmeans, method = "gap_stat")          
+fviz_nbclust(d, kmeans, method = "gap_stat")          
           
           
 set.seed(123)
-km.res <- kmeans(my, 3, nstart = 25)
+km.res <- kmeans(d, 3, nstart = 25)
 # Visualize
 library("factoextra")
-fviz_cluster(km.res, data = my,
+fviz_cluster(km.res, data = d,
                        ellipse.type = "convex",
                        palette = "jco",
                        ggtheme = theme_minimal())
 ############### the k-medoids/pam clustering can be computed as follow
 # Compute PAM
 library("cluster")
-pam.res <- pam(my_data, 3)
+pam.res <- pam(d, 3)
 # Visualize
 fviz_cluster(pam.res)
           

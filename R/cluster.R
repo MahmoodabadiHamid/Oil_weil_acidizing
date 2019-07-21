@@ -1,6 +1,3 @@
-install.packages("factoextra")
-install.packages("cluster")
-install.packages("magrittr")
 library("ggplot2")
 library("cluster")
 library("factoextra")

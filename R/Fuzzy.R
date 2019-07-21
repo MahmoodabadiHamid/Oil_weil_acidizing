@@ -22,6 +22,9 @@ clusplot(d, cl3, color = TRUE)
 # The firat data point belongs to Cluster A, that is Class A by 91%
 fanny_d<-fanny(d,4)
 fanny_d
+write.csv(fanny_d$membership,"E:/company/python/Oil_well_acidizing/Dataset/Second Dataset/fuzzy_membership.csv")
+write.csv(fanny_d$clustering,"E:/company/python/Oil_well_acidizing/Dataset/Second Dataset/fuzzy_cluster.csv")
+
 #We will observe this phenomena in more detail with another plot.
 library(ggplot2)
 library(factoextra)

@@ -1,25 +1,20 @@
 library(bnlearn)
 a=X022_preprocessing_after_normalizing_values[,-c(1,21,24)]
-dim(a)
-a
+aa=X011_preprocessing_after_encoding_label
+aaa=Sample_Synthetic_Data_Revised
 #b=empty.graph(names(a))
 #plot(b)
 g=plot(gs(a))
-#arcs(c)
+gg=plot(gs(aa))
+ggg=plot(gs(aaa))
 #modelstring(c)
-d=bn.fit(hc(aa),aa)
-arcs(d)
-coef(d)
-modelstring(d)
-nparams(d)
+h=bn.fit(hc(a),a)
+arcs(h)
+coef(h)
+modelstring(h)
+nparams(h)
 h=plot(hc(a))
 #as.data.frame()
 #is.data.frame(a)
-learning.test
-aa=X011_preprocessing_after_encoding_label[,-c(1,11,15,21,24)]
-hh=plot(hc(aa))
-all.equal(g,hh)
-?all.equal
-plplot(,,labels(a$`Carbonate/Sandstone`))
-plot(a$Longitude,a$Latitude, col = c("red", "blue")[a$`Carbonate/Sandstone`])
-plot(a$Longitude,a$Latitude, col = rgb(0, 1, a$`Carbonate/Sandstone`))
+all.equal(g,h)
+write.csv(arcs(h),"E:/company/python/Oil_well_acidizing/Dataset/Second Dataset/Arc.csv")

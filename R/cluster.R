@@ -8,7 +8,7 @@ library("magrittr")
 d <- X022_preprocessing_after_normalizing_values %>%
   na.omit() %>%          # Remove missing values (NA)
   scale()                # Scale variables
-
+d=d[,-c(1,2,3,4,19,20,8)]
 # View the firt 3 rows
 head(d, n = 3)
 
@@ -24,7 +24,7 @@ fviz_nbclust(d, kmeans, method = "gap_stat")
           
           
 set.seed(123)
-km.res <- kmeans(d, 3, nstart = 25)
+km.res <- kmeans(d, 4, nstart = 25)
 # Visualize
 library("factoextra")
 fviz_cluster(km.res, data = d,
@@ -34,7 +34,7 @@ fviz_cluster(km.res, data = d,
 ############### the k-medoids/pam clustering can be computed as follow
 # Compute PAM
 library("cluster")
-pam.res <- pam(d, 3)
+pam.res <- pam(d, 4)
 # Visualize
 fviz_cluster(pam.res)
           

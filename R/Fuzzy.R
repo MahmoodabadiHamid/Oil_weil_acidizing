@@ -1,7 +1,7 @@
 # dim returns the no of examples(rows) and columns present in the dataset.
 # names command tell the column names.
 # str tells the data types of each column
-d=X022_preprocessing_after_normalizing_values
+d=X022_preprocessing_after_normalizing_values[,-c(1,2,3,4,19,20,8)]
 
 #Let us use the cluster package available in R. If not install.
 # we apply clustering algorithm on this data set which do not have labels.
@@ -34,3 +34,4 @@ fviz_cluster(fanny_d, ellipse.type = "norm", repel = TRUE,
 # We will have one more plot and visualize the clusters formed.
 fviz_silhouette(fanny_d, palette = "jco",
                 ggtheme = theme_minimal())
+

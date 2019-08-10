@@ -41,29 +41,42 @@ def main():
             "Second Feature":[(df.columns[j])],
             "Correlation" : round(mutual_matrix[i, j],2)
                     }, ignore_index = True)
-      
-
-   min_max_scaler = preprocessing.MinMaxScaler()
-   mutual_matrix = min_max_scaler.fit_transform(mutual_matrix)
-   
-   corr_df[["Correlation"]] = min_max_scaler.fit_transform(corr_df[["Correlation"]])
    corr_df.to_excel("second_dataset_non_linear_correlation_ranking.xlsx")
-   
    pl, ax = plt.subplots(figsize=(20, 15))
-   hm = sns.heatmap(np.round(mutual_matrix,2), annot=True, ax=ax, cmap="coolwarm",fmt='.2f',
+   hm = sns.heatmap(mutual_matrix, annot=True, ax=ax, cmap="coolwarm",fmt='.2f',
                      linewidths=.05, annot_kws={"size": 7})
    hm.set_xticklabels(df.columns, rotation = 75, fontsize = 8)
    hm.set_yticklabels(df.columns, rotation = 30, fontsize =11)
    pl.subplots_adjust(top=0.93, left=0.15, bottom = 0.2)
    t= pl.suptitle('Well Attributes non-linear Correlation Heatmap', fontsize=14)
    pl.savefig('non_linear_Correlation_Plot.jpg')
-   #plt.show()
-    
- 
+#  plt.show()
+
 if __name__ == '__main__':
     main()
-
-
-
-
-
+         
+#############################################################
+##   min_max_scaler = preprocessing.MinMaxScaler()
+##   mutual_matrix = min_max_scaler.fit_transform(mutual_matrix)
+##   
+##   corr_df[["Correlation"]] = min_max_scaler.fit_transform(corr_df[["Correlation"]])
+##   corr_df.to_excel("second_dataset_non_linear_correlation_ranking.xlsx")
+##   
+##   pl, ax = plt.subplots(figsize=(20, 15))
+##   hm = sns.heatmap(np.round(mutual_matrix,2), annot=True, ax=ax, cmap="coolwarm",fmt='.2f',
+##                     linewidths=.05, annot_kws={"size": 7})
+##   hm.set_xticklabels(df.columns, rotation = 75, fontsize = 8)
+##   hm.set_yticklabels(df.columns, rotation = 30, fontsize =11)
+##   pl.subplots_adjust(top=0.93, left=0.15, bottom = 0.2)
+##   t= pl.suptitle('Well Attributes non-linear Correlation Heatmap', fontsize=14)
+##   pl.savefig('non_linear_Correlation_Plot.jpg')
+##   #plt.show()
+##    
+## 
+##if __name__ == '__main__':
+##    main()
+##
+##
+##
+##
+##

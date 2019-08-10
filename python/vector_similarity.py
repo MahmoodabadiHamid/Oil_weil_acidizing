@@ -51,10 +51,11 @@ def plot_k_most_similar_to_well(dataSet, columns, well_name, k, iteration):
     plt.subplot(222)
     plt.title('Cosine similarity')
     for i in range(21):
-        plt.axvline(x=0.5+i, color = 'black', linewidth = 0.5) 
+        plt.axvline(x=0.5+i, color = 'black', linewidth = 0.5)
+    
     for name, vector in d.most_common(k):
         vector = [ well.vector for well in dataSet if well.name == name][0]
-        plt.scatter(range(len(vector[0:])), vector[0:], label = str(name))
+        plt.scatter(range(len(vector[0:])), vector[0:], label = str(name) + str())
         
         plt.legend(bbox_to_anchor=(1.22, 0.5), loc='right', fancybox=True, framealpha=1)
 

@@ -1,3 +1,4 @@
+import random
 import pandas as pd
 import os
 os.chdir("../Dataset/Second dataset")
@@ -25,7 +26,7 @@ def manhattan_distance(v1,v2):
 def cosine_similarity(v1, v2):
     return dot_product(v1, v2) / (vector_len(v1) * vector_len(v2))
 
-def plot_k_most_similar_to_well(dataSet, columns, well_name, k):
+def plot_k_most_similar_to_well(dataSet, columns, well_name, k, iteration):
     plt.figure(figsize=(15,7))
     v = [ well.vector for well in dataSet if well.name == well_name][0]
     
@@ -38,7 +39,11 @@ def plot_k_most_similar_to_well(dataSet, columns, well_name, k):
     for i, txt in enumerate(columns):
             plt.annotate(txt, (i, 0), rotation = -90, fontsize = 'x-small')
 
-    plt.legend()
+    #plt.legend()
+    
+    plt.legend(bbox_to_anchor=(1.22,  1), loc='right', ncol=1, fancybox=True, framealpha=1)
+    
+
     dict ={}
     for i in dataSet:
         dict[i.name] = cosine_similarity(i.vector, v)
@@ -51,7 +56,7 @@ def plot_k_most_similar_to_well(dataSet, columns, well_name, k):
         vector = [ well.vector for well in dataSet if well.name == name][0]
         plt.scatter(range(len(vector[0:])), vector[0:], label = str(name))
         
-        plt.legend()
+        plt.legend(bbox_to_anchor=(1.22, 0.5), loc='right', fancybox=True, framealpha=1)
 
 
     dict ={}
@@ -66,9 +71,9 @@ def plot_k_most_similar_to_well(dataSet, columns, well_name, k):
         vector = [ well.vector for well in dataSet if well.name == name][0]
         plt.scatter(range(len(vector[0:])), vector[0:], label = str(name))
         
-        plt.legend()
+        plt.legend(bbox_to_anchor=(1.22, 0.5), loc='right', fancybox=True, framealpha=1)
 
-    dict ={}
+    dict = {}
     for i in dataSet:
         dict[i.name] = manhattan_distance(i.vector, v)
     d = Counter(dict)
@@ -81,9 +86,12 @@ def plot_k_most_similar_to_well(dataSet, columns, well_name, k):
     for name, vector in d.most_common()[:-k-1:-1]:
         vector = [ well.vector for well in dataSet if well.name == name][0]
         plt.scatter(range(len(vector[0:])), vector[0:], label = str(name))
+        frame1 = plt.gca()
+        frame1.axes.get_yaxis().set_visible(False)
         
-        plt.legend()
-    plt.show()
+        plt.legend(bbox_to_anchor=(1.22, 0.5), loc='right', fancybox=True, framealpha=1)
+    plt.savefig("similarVector_"+ str(iteration))
+    #plt.show()
 
 
 
@@ -112,7 +120,10 @@ def readDataSet():
 
 dataSet, columns = readDataSet()
 
-plot_k_most_similar_to_well(dataSet, columns, 'well_1_1', 10)
+
+for i in range(100):
+        
+    plot_k_most_similar_to_well(dataSet, columns, "well_"+str(random.randint(1, (100)))+"_" + str(random.randint(1, 5)), 10, i)
 
 #plot_features(dataSet, columns)
 

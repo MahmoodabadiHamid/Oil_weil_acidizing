@@ -1,9 +1,18 @@
+from matplotlib.colors import ListedColormap
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
+
+def normalizeValues(df):
+    from sklearn import preprocessing
+    min_max_scaler = preprocessing.MinMaxScaler()
+    x_scaled = min_max_scaler.fit_transform(df)
+    return x_scaled
+
+   
 def calc_MI(X,Y,bins):
    c_XY = np.histogram2d(X,Y,bins)[0]
    c_X = np.histogram(X,bins)[0]
@@ -42,18 +51,35 @@ def main():
             "Correlation" : round(mutual_matrix[i, j],2)
                     }, ignore_index = True)
    corr_df.to_excel("second_dataset_non_linear_correlation_ranking.xlsx")
+
+
+   normalizedMutualMatrix = np.zeros([df.shape[1],df.shape[1]])
+   for i in range(mutual_matrix.shape[0]):
+      normalizedMutualMatrix[i] = [i[0] for i in normalizeValues(mutual_matrix[i].reshape(-1, 1))]
+
    pl, ax = plt.subplots(figsize=(20, 15))
-   hm = sns.heatmap(mutual_matrix, annot=True, ax=ax, cmap="coolwarm",fmt='.2f',
-                     linewidths=.05, annot_kws={"size": 7})
+   hm = sns.heatmap(mutual_matrix, annot=True, ax=ax, cmap=ListedColormap(['white']),fmt='.2f',
+                     linewidths=.05, annot_kws={"size": 7}, cbar = False)
    hm.set_xticklabels(df.columns, rotation = 75, fontsize = 8)
    hm.set_yticklabels(df.columns, rotation = 30, fontsize =11)
    pl.subplots_adjust(top=0.93, left=0.15, bottom = 0.2)
    t= pl.suptitle('Well Attributes non-linear Correlation Heatmap', fontsize=14)
    pl.savefig('non_linear_Correlation_Plot.jpg')
-#  plt.show()
+   plt.show()
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
+
+
+
+
          
 #############################################################
 ##   min_max_scaler = preprocessing.MinMaxScaler()

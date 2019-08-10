@@ -4,10 +4,14 @@ aa=X011_preprocessing_after_encoding_label
 aaa=Sample_Synthetic_Data_Revised
 #b=empty.graph(names(a))
 #plot(b)
-g=plot(gs(a))
-gg=plot(gs(aa))
-ggg=plot(gs(aaa))
+plot(gs(a))
+g=bn.fit(gs(a),a)
+#mmhc
+plot(mmhc(a))
+m=bn.fit(mmhc(a),a)
+coef(m)
 #modelstring(c)
+plot(hc(a))
 h=bn.fit(hc(a),a)
 arcs(h)
 coef(h)

@@ -91,8 +91,8 @@ def plot_k_most_similar_to_well(dataSet, columns, well_name, k, iteration):
         frame1.axes.get_yaxis().set_visible(False)
         
         plt.legend(bbox_to_anchor=(1.22, 0.5), loc='right', fancybox=True, framealpha=1)
-    plt.savefig("similarVector_"+ str(iteration))
-    #plt.show()
+    #plt.savefig("similarVector_"+ str(iteration))
+    plt.show()
 
 
 
@@ -122,7 +122,7 @@ def readDataSet():
 dataSet, columns = readDataSet()
 
 
-for i in range(100):
+for i in range(1):
         
     plot_k_most_similar_to_well(dataSet, columns, "well_"+str(random.randint(1, (100)))+"_" + str(random.randint(1, 5)), 10, i)
 

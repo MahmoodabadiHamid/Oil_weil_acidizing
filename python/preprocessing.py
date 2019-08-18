@@ -42,6 +42,7 @@ def plot_corr(df,size=10):
     pl.savefig('Correlation_Plot.jpg')
     plt.show()
     return corr
+
 def featureCorrelationRanking(df):
     c = df.corr()
     s = c.unstack()
@@ -213,7 +214,7 @@ def plotByLocation(df, label):
 #save_box_plot(enc_df, norm_df)
 
 #____________________________________________________________ Step Five ___________________________________________
-df = pd.read_excel("022_preprocessing_after_normalizing_values.xlsx")
+df = pd.read_excel("011_preprocessing_after_encoding_label.xlsx")
 #plot_corr(df,size=10)
 #____________________________________________________________ Step Six ___________________________________________
 
@@ -250,6 +251,7 @@ df = pd.read_excel("022_preprocessing_after_normalizing_values.xlsx")
 #scatter_matrix(pca_df, alpha=0.2)
 
 ##################### wcss
+'''
 from sklearn.cluster import KMeans
 wcss = []
 for i in range(1,11):
@@ -262,7 +264,7 @@ plt.xlabel('Number of clusters')
 plt.ylabel('WCSS')
 plt.savefig('elbow.png')
 plt.show()
-
+'''
 
 
 

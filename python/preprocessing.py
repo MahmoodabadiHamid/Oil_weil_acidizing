@@ -2,7 +2,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-os.chdir("../Dataset/Second dataset")
+os.chdir("../Dataset/third dataset")
 
 import pandas as pd
 from pandas.plotting import scatter_matrix
@@ -25,7 +25,7 @@ def normalizeValues(df):
     x_scaled = min_max_scaler.fit_transform(x)
     df = pd.DataFrame(x_scaled)
     df.columns = col
-    df.to_excel('022_preprocessing_after_normalizing_values.xlsx')
+    df.to_excel('0111_preprocessing_after_encoding_label.xlsx')
     return df
 
 
@@ -46,9 +46,9 @@ def plot_corr(df,size=10):
 def featureCorrelationRanking(df):
     c = df.corr()
     s = c.unstack()
-    so = s.sort_values(kind="quicksort")
+    so = s.sort_values(kind="quicksort", ascending = False)
     so = pd.DataFrame(so.dropna())
-    so.to_excel("feture_correlation_ranking2.xlsx")
+    so.to_excel("feture_correlation_ranking3.xlsx")
     return so
 
 def PCA_(X, n_components):
@@ -214,7 +214,7 @@ def plotByLocation(df, label):
 #save_box_plot(enc_df, norm_df)
 
 #____________________________________________________________ Step Five ___________________________________________
-df = pd.read_excel("011_preprocessing_after_encoding_label.xlsx")
+df = pd.read_excel("0111_preprocessing_after_encoding_label.xlsx")
 #plot_corr(df,size=10)
 #____________________________________________________________ Step Six ___________________________________________
 

@@ -7,7 +7,8 @@ from collections import OrderedDict
 os.chdir("../Dataset/Second dataset")
 
 #Counter(lst).most_common(1)[0][0]
-
+def most_frequent(List): 
+    return max(set(List), key = List.count)
 
 def calculate_distance(x1, x2, y1, y2):
     return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
@@ -27,7 +28,7 @@ class Well():
 
 
 def readDataset():
-    file_name = '022_preprocessing_after_normalizing_values.xlsx'
+    file_name = '011_preprocessing_after_encoding_label.xlsx'
     df = pd.read_excel(file_name, index=False)
     dataSet = []
     for i in range(df.shape[0]):
@@ -46,20 +47,22 @@ def k_nearest_well(loc, k):
     vector_output = Well('output_vec', loc, pd.DataFrame(columns = columns))
     d = {}
     for i in range(len(dataSet)):
-        d[dataSet[i].name] = calculate_distance(dataSet[i].location.lat, dataSet[0].location.lat,
-                                                   dataSet[i].location.lon, dataSet[0].location.lon)
+        d[dataSet[i].name] = calculate_distance(dataSet[i].location.lat, dataSet[10].location.lat,
+                                                   dataSet[i].location.lon, dataSet[10].location.lon)
+    
     d = dict(sorted(d.items(), key=operator.itemgetter(1))[:k])
+    print(d)
+
+
 
     '''
     plt.title('Based on location feature assigning')
     for i in range(len(columns)):
         plt.axvline(x=0.5+i, color = 'black', linewidth = 0.5)
-    
     for name, vector in Counter(d).most_common(k):
         vector = [ well.vector for well in dataSet if well.name == name][0]
         plt.scatter(range(len(vector[0:])), vector[0:], label = str(name) + str())
         plt.legend( loc='right', fancybox=True)
-        
     for i, txt in enumerate(columns):
             plt.annotate(txt, (i, 0), rotation = -90, fontsize = 'x-small')
     plt.show()
@@ -67,9 +70,8 @@ def k_nearest_well(loc, k):
     return vector_output
 
 
-lc = Location(10, 10)
+lc = Location(250, 100)
 vc = k_nearest_well(lc, k = 20)
-
 
 
 
